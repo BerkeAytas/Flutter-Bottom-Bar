@@ -22,6 +22,8 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
       vsync: this,
       duration: const Duration(milliseconds: 250),
     );
+    getXController = Get.put(GetXController());
+    getXController.controller = _controller;
   }
 
   @override
@@ -41,12 +43,12 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
             ),
         FloatingActionButton(
           onPressed: () {
-            getXController.fabClicked.value = !getXController.fabClicked.value;
-            if (_controller.isDismissed) {
+            getXController.doAnimation();
+            /*if (_controller.isDismissed) {
               _controller.forward();
             } else {
               _controller.reverse();
-            }
+            }*/
           },
           tooltip: 'Increment',
           child: Icon(Icons.add),
@@ -79,6 +81,7 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
     );
   }
 
+/*
   Widget _buildFab() {
     return FloatingActionButton(
       onPressed: () {
@@ -93,7 +96,7 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
       elevation: 2.0,
     );
   }
-
+*/
   void _onTapped(int index) {
     _controller.reverse();
     getXController.fabClicked.value = !getXController.fabClicked.value;

@@ -7,8 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'deneme.dart';
-
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -44,6 +42,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
+  void _selectedTabe(int index) {
+    getXController.doAnimation();
+  }
+
   void _selectedFab(int index) {
     setState(() {
       _selectedIndex = 4 + index;
@@ -70,9 +72,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           pageList[_selectedIndex],
           Obx(
             () => getXController.fabClicked.value
-                ? Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                ? GestureDetector(
+                    onTap: () {
+                      getXController.doAnimation();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                      ),
                     ),
                   )
                 : Container(),
@@ -80,21 +87,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         ],
       ),
       bottomNavigationBar: Obx(() => getXController.fabClicked.value
-          ? Container(
-              color: Colors.black.withOpacity(0.5),
-              child: FABBottomAppBar(
-                backgroundColor: Colors.white.withOpacity(0.6),
-                centerItemText: 'A',
-                color: Colors.grey,
-                selectedColor: Colors.blue,
-                notchedShape: CircularNotchedRectangle(),
-                onTabSelected: _selectedTab,
-                items: [
-                  FABBottomAppBarItem(iconData: Icons.store, text: 'Anasayfa'),
-                  FABBottomAppBarItem(iconData: Icons.shopping_basket, text: 'Sepetim'),
-                  FABBottomAppBarItem(iconData: Icons.person, text: 'Kampanyalar'),
-                  FABBottomAppBarItem(iconData: Icons.business, text: 'Profil'),
-                ],
+          ? GestureDetector(
+              onTap: () {
+                getXController.doAnimation();
+              },
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+                child: FABBottomAppBar(
+                  backgroundColor: Colors.white.withOpacity(0.6),
+                  centerItemText: 'A',
+                  color: Colors.grey,
+                  selectedColor: Colors.blue,
+                  notchedShape: CircularNotchedRectangle(),
+                  onTabSelected: _selectedTabe,
+                  items: [
+                    FABBottomAppBarItem(iconData: Icons.store, text: 'Anasayfa'),
+                    FABBottomAppBarItem(iconData: Icons.shopping_basket, text: 'Sepetim'),
+                    FABBottomAppBarItem(iconData: Icons.person, text: 'Kampanyalar'),
+                    FABBottomAppBarItem(iconData: Icons.business, text: 'Profil'),
+                  ],
+                ),
               ),
             )
           : FABBottomAppBar(
